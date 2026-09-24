@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #030308;
+    color: #e2e8f0;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(129, 140, 248, 0.35);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #05050d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #4f46e5, #a855f7);
+    border-radius: 8px;
+    border: 2px solid #05050d;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl;
+  }
+
+  .glass-strong {
+    @apply border border-white/10 bg-slate-950/60 backdrop-blur-2xl;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-indigo-300 via-fuchsia-300 to-cyan-300 bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: shimmerText 6s linear infinite;
+  }
+
+  .text-gradient-animated {
+    @apply bg-[linear-gradient(110deg,#818cf8,35%,#e879f9,50%,#22d3ee,65%,#818cf8)] bg-clip-text text-transparent;
+    background-size: 200% 100%;
+    animation: shimmerText 5s linear infinite;
+  }
+
+  .ring-glow {
+    box-shadow:
+      0 0 0 1px rgba(129, 140, 248, 0.2),
+      0 0 40px -8px rgba(129, 140, 248, 0.45),
+      0 0 80px -20px rgba(217, 70, 239, 0.3);
+  }
+
+  .card-spotlight {
+    position: relative;
+    overflow: hidden;
+  }
+  .card-spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(129, 140, 248, 0.14),
+      transparent 45%
+    );
+    pointer-events: none;
+  }
+  .card-spotlight:hover::before {
+    opacity: 1;
+  }
+  .card-spotlight > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .border-gradient {
+    position: relative;
+    background:
+      linear-gradient(#070712, #070712) padding-box,
+      linear-gradient(135deg, rgba(129, 140, 248, 0.6), rgba(217, 70, 239, 0.35) 40%, rgba(34, 211, 238, 0.5)) border-box;
+    border: 1px solid transparent;
+  }
+}
+
+@layer utilities {
+  .perspective-grid {
+    background-image:
+      linear-gradient(rgba(99, 102, 241, 0.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99, 102, 241, 0.14) 1px, transparent 1px);
+    background-size: 48px 48px;
+    animation: gridPan 14s linear infinite;
+  }
+
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
+  .glow-orb {
+    @apply absolute rounded-full blur-3xl pointer-events-none;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
